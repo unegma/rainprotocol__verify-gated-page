@@ -5,11 +5,12 @@ import {useFrame} from '@react-three/fiber'
 import Frame from "./Frame";
 const GOLDENRATIO = 1.61803398875;
 
-export default function Frames({images, q = new THREE.Quaternion(), p = new THREE.Vector3()}: any) {
+export default function Frames({images, q = new THREE.Quaternion(), p = new THREE.Vector3(), setModalOpen, setSelectedImage}: any) {
   const ref = useRef<any>();
   const clicked = useRef<any>();
   const [, params] = useRoute('/item/:id');
   const [, setLocation] = useLocation();
+
   useEffect(() => {
     clicked.current = ref.current.getObjectByName(params?.id)
     if (clicked.current) {
@@ -30,7 +31,12 @@ export default function Frames({images, q = new THREE.Quaternion(), p = new THRE
       ref={ref}
       onClick={(e) => (e.stopPropagation(), setLocation(clicked.current === e.object ? '/' : '/item/' + e.object.name))}
       onPointerMissed={() => setLocation('/')}>
-      {images.map((props: any) => <Frame key={props.url} {...props} /> /* prettier-ignore */)}
+      {images.map((props: any) =>
+        <Frame key={props.url}
+           setModalOpen={setModalOpen}
+           setSelectedImage={setSelectedImage}
+           {...props}
+        /> /* prettier-ignore */)}
     </group>
   )
 }
