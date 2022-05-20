@@ -11,9 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-#root {
+#root, .rootContainer {
   width: 100vw;
-  height: 100%;
+  height: 100vh;
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -25,6 +25,6 @@ body {
 }
 
 canvas {
-  width: 100%;
-  height: 100vh;
+  width: 100% !important;
+  height: 100% !important;
 }
