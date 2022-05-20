@@ -87,7 +87,7 @@ export default function Modal({open, setModalOpen, selectedImage}: any) {
       >
         <Box component="div" sx={style}>
           <img className="modalImage" src={displayedImage} alt="#" /><br/>
-          <Typography className="modalText">Demo, see console for data</Typography>
+          <Typography className="modalText">Demo, see console for data. Please also be aware (for now), you aren't currently buying individual NFTs, but rTKN.</Typography>
           <Button onClick={initiateBuy}>Buy NFT</Button><br/>
           <Button onClick={() => {setModalOpen(false)}}>Close</Button>
         </Box>
