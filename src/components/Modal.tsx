@@ -9,7 +9,7 @@ import {useEffect, useState} from "react";
 import {Text} from "@react-three/drei";
 
 const CHAIN_ID = 80001; // Mumbai (Polygon Testnet) Chain ID
-const YOUR_SALE_ADDRESS = "0xaF428Be94548e98b85c8c0aBC166aD96cB0C8BDa"; // todo move to .env
+const YOUR_SALE_ADDRESS = "0xe024ADbe0dd693Ca1467Cf8d5efA2Ac351785BfC"; // todo move to .env
 const ERC20_DECIMALS = 18; // See here for more info: https://docs.openzeppelin.com/contracts/3.x/erc20#a-note-on-decimals
 
 const style = {

@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 
 export default function NavBar() {
   return (
-    <Box component="div" sx={{ flexGrow: 1 }}>
+    <Box component="div" sx={{ flexGrow: 1 }} className="navBar" >
       <AppBar position="fixed" color="transparent">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
