@@ -102,10 +102,11 @@ function App({images}: any) {
         const signer = await getSigner();
         const address = await signer.getAddress();
 
-        alert('Minting');
+        alert('Minting, please wait a moment and don\`t refresh the page!');
         const gatedNFTContract = new rainSDK.GatedNFT(YOUR_GATEDNFT_ADDRESS, signer);
         await gatedNFTContract.mint(address); // get one of the NFTs needed to take part in the sale
         await getUserBalance(); // this will trigger useEffect and update the text in the frontend
+        alert('Done, you will (currently) need to refresh the page!');
       }
     } catch(err) {
       console.log('------------------------------');
