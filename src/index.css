@@ -80,6 +80,7 @@ canvas {
 }
 
 .gatedSection__info {
+  overflow:auto;
   margin-left: 5%;
   padding: 30px;
   align-self: center;
