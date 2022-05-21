@@ -7,6 +7,8 @@ import Modal from './components/Modal';
 import Button from "@mui/material/Button";
 import {ethers} from "ethers";
 import * as rainSDK from "rain-sdk";
+import LocalActivityIcon from '@mui/icons-material/LocalActivity';
+import {Icon} from "@mui/material";
 
 declare var process : {
   env: {
@@ -129,7 +131,7 @@ function App({images}: any) {
         <div className="gatedSection__right">
           <div className="gatedSection__info">
             <h1>Welcome to MetaGallery</h1><p><span>Please either show or purchase an entry ticket to enter</span></p>
-            <p>You currently have {userBalance < 1 ? "no ticket!" : "a ticket!"}</p>
+            <p>You currently have {userBalance < 1 ? "no ticket!" : "a ticket!"}</p><div className="ticket" hidden={userBalance == 0}><LocalActivityIcon/></div>
             <br/>
             <Button onClick={() => {tryEntry(userBalance, setEntryAllowed)}} variant="outlined" color="primary">Enter</Button>&nbsp;
             <Button onClick={() => {purchaseTicket(userBalance)}} variant="outlined" color="secondary">Purchase</Button>
