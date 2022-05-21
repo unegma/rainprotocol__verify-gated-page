@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import {ethers} from "ethers";
 import * as rainSDK from "rain-sdk";
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
-import {Icon} from "@mui/material";
+import {Divider, Icon} from "@mui/material";
 
 declare var process : {
   env: {
@@ -134,7 +134,14 @@ function App({images}: any) {
         <div className="gatedSection__left"></div>
         <div className="gatedSection__right">
           <div className="gatedSection__info">
-            <h1>Welcome to MetaGallery</h1><p><span>Please either show or purchase an entry ticket to enter</span></p>
+            <h1>Welcome to MetaGallery</h1><p><span>Please either show or purchase an entry ticket to enter. <br/><br/>
+            You will need to connect to Polygon Mumbai Testnet, and have some Testnet Matic. <br/><br/>
+            You might also want to check the console in your browser (works best in Chrome).</span></p>
+
+            <br/>
+            <Divider color="white" variant="fullWidth"/>
+            <br/>
+
             <p>You currently have {userBalance < 1 ? "no ticket!" : "a ticket!"}</p><div className="ticket" hidden={userBalance == 0}><LocalActivityIcon/></div>
             <br/>
             <Button onClick={() => {tryEntry(userBalance, setEntryAllowed)}} variant="outlined" color="primary">Enter</Button>&nbsp;
