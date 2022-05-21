@@ -105,8 +105,11 @@ function App({images}: any) {
         alert('Minting, please wait a moment and don\`t refresh the page!');
         const gatedNFTContract = new rainSDK.GatedNFT(YOUR_GATEDNFT_ADDRESS, signer);
         await gatedNFTContract.mint(address); // get one of the NFTs needed to take part in the sale
+
+        // todo add a way to check when the mint has finished
+
         await getUserBalance(); // this will trigger useEffect and update the text in the frontend
-        alert('Done, you will (currently) need to refresh the page!');
+        alert('Done, you will (currently) need to refresh the page when the mint is complete!');
       }
     } catch(err) {
       console.log('------------------------------');
