@@ -6,11 +6,17 @@ import { Modal as ModalMaterial } from '@mui/material';
 import {ethers} from "ethers";
 import * as rainSDK from "rain-sdk";
 import {useEffect, useState} from "react";
-import {Text} from "@react-three/drei";
 
-const CHAIN_ID = 80001; // Mumbai (Polygon Testnet) Chain ID
-const YOUR_SALE_ADDRESS = "0xe024ADbe0dd693Ca1467Cf8d5efA2Ac351785BfC"; // todo move to .env
-const ERC20_DECIMALS = 18; // See here for more info: https://docs.openzeppelin.com/contracts/3.x/erc20#a-note-on-decimals
+declare var process : {
+  env: {
+    REACT_APP_CHAIN_ID: string
+    REACT_APP_YOUR_SALE_ADDRESS: string
+    REACT_APP_ERC20_DECIMALS: string
+  }
+}
+const CHAIN_ID = parseInt(process.env.REACT_APP_CHAIN_ID); // Mumbai (Polygon Testnet) Chain ID
+const YOUR_SALE_ADDRESS = process.env.REACT_APP_YOUR_SALE_ADDRESS;
+const ERC20_DECIMALS = parseInt(process.env.REACT_APP_ERC20_DECIMALS); // See here for more info: https://docs.openzeppelin.com/contracts/3.x/erc20#a-note-on-decimals
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -23,7 +29,6 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-
 
 async function initiateBuy() {
   try {

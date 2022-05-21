@@ -7,9 +7,17 @@ import Modal from './components/Modal';
 import Button from "@mui/material/Button";
 import {ethers} from "ethers";
 import * as rainSDK from "rain-sdk";
-const CHAIN_ID = 80001; // Mumbai (Polygon Testnet) Chain ID
-const YOUR_GATEDNFT_ADDRESS = "0x98b0d3ae729a25f287f55D22bDeFd64fB267196c";// todo move to .env
-const YOUR_TIER_ADDRESS = "0x008F87b3A2DEa78ed5156E695394336c921533B1";// todo move to .env
+
+declare var process : {
+  env: {
+    REACT_APP_CHAIN_ID: string
+    REACT_APP_YOUR_GATEDNFT_ADDRESS: string
+    REACT_APP_YOUR_TIER_ADDRESS: string
+  }
+}
+const CHAIN_ID = parseInt(process.env.REACT_APP_CHAIN_ID); // Mumbai (Polygon Testnet) Chain ID
+const YOUR_GATEDNFT_ADDRESS = process.env.REACT_APP_YOUR_GATEDNFT_ADDRESS;
+const YOUR_TIER_ADDRESS = parseInt(process.env.REACT_APP_YOUR_TIER_ADDRESS); // See here for more info: https://docs.openzeppelin.com/contracts/3.x/erc20#a-note-on-decimals
 
 /**
  * Get Signer
@@ -92,8 +100,10 @@ function App({images}: any) {
         const signer = await getSigner();
         const address = await signer.getAddress();
 
+        alert('Minting');
         const gatedNFTContract = new rainSDK.GatedNFT(YOUR_GATEDNFT_ADDRESS, signer);
         await gatedNFTContract.mint(address); // get one of the NFTs needed to take part in the sale
+        await getUserBalance(); // this will trigger useEffect and update the text in the frontend
       }
     } catch(err) {
       console.log('------------------------------');
@@ -119,7 +129,7 @@ function App({images}: any) {
         <div className="gatedSection__right">
           <div className="gatedSection__info">
             <h1>Welcome to MetaGallery</h1><p><span>Please either show or purchase an entry ticket to enter</span></p>
-            <p>You currently have {userBalance} ticket.</p>
+            <p>You currently have {userBalance < 1 ? "no ticket!" : "a ticket!"}</p>
             <br/>
             <Button onClick={() => {tryEntry(userBalance, setEntryAllowed)}} variant="outlined" color="primary">Enter</Button>&nbsp;
             <Button onClick={() => {purchaseTicket(userBalance)}} variant="outlined" color="secondary">Purchase</Button>
