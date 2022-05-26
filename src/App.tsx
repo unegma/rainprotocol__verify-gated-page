@@ -52,7 +52,7 @@ async function getSigner (){
 function App({images}: any) {
   const [entryAllowed, setEntryAllowed] = useState(false);
   const [isApproved, setIsApproved] = useState(false);
-  const [hacking, setHacking] = useState(false);
+  const [requesting, setRequesting] = useState(false);
 
   /**
    * Get UserBalance
@@ -79,35 +79,36 @@ function App({images}: any) {
     }
   }
 
-  async function hackEntryPoint(setHacking: any) {
-    setHacking(true);
-    console.log(`Hacking Entry Point.`);
+  async function requestEntry(setRequesting: any) {
+    setRequesting(true);
+    console.log(`Requesting Entry.`);
 
     try {
       const signer = await getSigner();
       const address = await signer.getAddress();
       const verifyContract = new rainSDK.Verify(YOUR_VERIFY_ADDRESS, signer);
+      //
+      // console.log(`Granting you the APPROVER role.`);
+      // const approverRoleHash = await verifyContract.APPROVER();
+      // // https://docs.ethers.io/v5/api/providers/types/#types--transactions
+      // const grantTransaction = await verifyContract.grantRole(approverRoleHash, address); // todo may need to give self approver role
+      // const grantTransactionReceipt = await grantTransaction.wait();
+      // console.log(`Info: Grant Transaction Receipt:`, grantTransactionReceipt);
+      //
+      console.log(`Info: Requesting approve:`);
 
-      console.log(`Granting you the APPROVER role.`);
-      const approverRoleHash = await verifyContract.APPROVER();
-      // https://docs.ethers.io/v5/api/providers/types/#types--transactions
-      const grantTransaction = await verifyContract.grantRole(approverRoleHash, address); // todo may need to give self approver role
-      const grantTransactionReceipt = await grantTransaction.wait();
-      console.log(`Info: Grant Transaction Receipt:`, grantTransactionReceipt);
-
-      console.log(`Info: Approving You:`);
-
-      const approvalTransaction = await verifyContract.approve([{
+      const requestApproveTransaction = await verifyContract.requestApprove([{
         account: address,
         data: []
       }])
-      const approvalTransactionReceipt = await approvalTransaction.wait();
-      console.log(`Result: of Approval Transaction Receipt:`, approvalTransactionReceipt);
+      const requestApproveTransactionReceipt = await requestApproveTransaction.wait();
+      console.log(`Result: of Request Approval Transaction Receipt:`, requestApproveTransactionReceipt);
       console.log("Info: Done");
-      setHacking(false);
+
+      setRequesting(false);
     } catch(err) {
       console.log(err);
-      setHacking(false);
+      setRequesting(false);
     }
   }
 
@@ -152,11 +153,11 @@ function App({images}: any) {
             <p>You are currently {!isApproved ? "not verified!" : "verified!"}</p><div className="ticket" hidden={!entryAllowed}><DoneIcon/></div>
             <br/>
             <Button onClick={() => {tryEntry(setEntryAllowed)}} variant="outlined" color="primary">Enter</Button>&nbsp;
-            { !hacking && (
-              <Button onClick={() => {hackEntryPoint(setHacking)}} variant="outlined" color="primary">Hack Entry Point</Button>
+            { !requesting && (
+              <Button onClick={() => {requestEntry(setRequesting)}} variant="outlined" color="primary">Request Entry</Button>
             )}
-            { hacking && (
-              <div>Hacking: <CircularProgress /></div>
+            { requesting && (
+              <div>Requesting: <CircularProgress /></div>
             )}
           </div>
         </div>
