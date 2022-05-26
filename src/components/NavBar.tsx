@@ -11,7 +11,7 @@ export default function NavBar() {
       <AppBar position="fixed" color="transparent">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            MetaGallery
+            MetaConcert
           </Typography>
           {/*<Button color="inherit">Login</Button>*/}
         </Toolbar>

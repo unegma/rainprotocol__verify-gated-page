@@ -88,3 +88,8 @@ canvas {
 
 .ticket {
 }
+
+.canvasContainer {
+  z-index:0;
+  background: url('./concert.jpg') no-repeat center center fixed;
+}
